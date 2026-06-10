@@ -1,0 +1,284 @@
+@import "tailwindcss";
+
+@theme inline {
+  /* Colors */
+  --color-primary: #ffd101;
+  --color-primary-dark: #e6bc00;
+  --color-secondary: #0d2daa;
+  --color-secondary-dark: #0a2490;
+  --color-danger: #b5000b;
+  --color-danger-dark: #930009;
+  --color-dark: #0a0a0a;
+  --color-dark-2: #1a1a1a;
+  --color-dark-3: #2a2a2a;
+  --color-muted: #6b7280;
+  --color-light: #f9fafb;
+  --color-white: #ffffff;
+
+  /* Fonts */
+  --font-sans: "Sora", sans-serif;
+  --font-heading: "Montserrat", sans-serif;
+}
+
+@layer base {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    background-color: var(--color-light);
+    color: var(--color-dark);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── TIPOGRAFÍA MOBILE (default) ── */
+  h1 {
+    font-family: var(--font-heading);
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+  h2 {
+    font-family: var(--font-heading);
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+  h3 {
+    font-family: var(--font-heading);
+    font-size: 26px;
+    font-weight: 600;
+    line-height: 1.3;
+  }
+  h4 {
+    font-family: var(--font-heading);
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 1.3;
+  }
+  h5 {
+    font-family: var(--font-heading);
+    font-size: 22px;
+    font-weight: 500;
+    line-height: 1.4;
+  }
+  h6 {
+    font-family: var(--font-heading);
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 1.4;
+  }
+  p {
+    font-size: 14px;
+    line-height: 1.6;
+  }
+  label {
+    font-size: 14px;
+    font-weight: 500;
+  }
+  small {
+    font-size: 12px;
+    line-height: 1.5;
+  }
+
+  /* ── TIPOGRAFÍA DESKTOP (≥768px) ── */
+  @media (min-width: 768px) {
+    h1 {
+      font-size: 56px;
+    }
+    h2 {
+      font-size: 48px;
+    }
+    h3 {
+      font-size: 40px;
+    }
+    h4 {
+      font-size: 32px;
+    }
+    h5 {
+      font-size: 28px;
+    }
+    h6 {
+      font-size: 24px;
+    }
+    p {
+      font-size: 16px;
+    }
+    label {
+      font-size: 16px;
+    }
+    small {
+      font-size: 14px;
+    }
+  }
+}
+
+@layer components {
+  /* ── CLASES UTILITARIAS ── */
+  .display {
+    font-family: var(--font-heading);
+    font-size: 36px;
+    font-weight: 800;
+    line-height: 1.1;
+  }
+  .lead {
+    font-size: 18px;
+    line-height: 1.6;
+  }
+  .lead2 {
+    font-size: 16px;
+    line-height: 1.6;
+  }
+  .h2-hero {
+    font-family: var(--font-heading);
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+  .h3-card {
+    font-family: var(--font-heading);
+    font-size: 26px;
+    font-weight: 600;
+    line-height: 1.3;
+  }
+  .subtitle1 {
+    font-size: 22px;
+    font-weight: 500;
+  }
+  .subtitle2 {
+    font-size: 20px;
+    font-weight: 500;
+  }
+  .h1-badge {
+    font-family: var(--font-heading);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  .btn-sans {
+    font-family: var(--font-heading);
+    font-weight: 600;
+  }
+
+  @media (min-width: 768px) {
+    .display {
+      font-size: 64px;
+    }
+    .lead {
+      font-size: 20px;
+    }
+    .lead2 {
+      font-size: 18px;
+    }
+    .h2-hero {
+      font-size: 56px;
+    }
+    .h3-card {
+      font-size: 30px;
+    }
+    .subtitle1 {
+      font-size: 28px;
+    }
+    .subtitle2 {
+      font-size: 24px;
+    }
+  }
+
+  /* ── VARIANTES WHITE ── */
+  .h1-white,
+  .h2-white,
+  .h3-white,
+  .h4-white,
+  .h5-white,
+  .h6-white {
+    color: var(--color-white);
+  }
+  .p-white,
+  .label-white,
+  .span-white,
+  .small-white,
+  .li-white {
+    color: var(--color-white);
+  }
+  .display-white,
+  .lead-white,
+  .lead2-white {
+    color: var(--color-white);
+  }
+  .h2-hero-white,
+  .h3-card-white {
+    color: var(--color-white);
+  }
+  .h1-badge-white,
+  .subtitle1-white,
+  .subtitle2-white {
+    color: var(--color-white);
+  }
+
+  /* ── VARIANTES PRIMARY ── */
+  .h1-primary,
+  .h2-primary,
+  .h3-primary,
+  .h4-primary,
+  .h5-primary,
+  .h6-primary {
+    color: var(--color-primary);
+  }
+  .p-primary,
+  .span-primary,
+  .label-primary,
+  .small-primary {
+    color: var(--color-primary);
+  }
+  .display-primary,
+  .lead-primary,
+  .lead2-primary {
+    color: var(--color-primary);
+  }
+  .h2-hero-primary,
+  .h3-card-primary,
+  .h1-badge-primary {
+    color: var(--color-primary);
+  }
+
+  /* ── VARIANTES SECONDARY ── */
+  .h1-secondary,
+  .h2-secondary,
+  .h3-secondary,
+  .h4-secondary {
+    color: var(--color-secondary);
+  }
+  .p-secondary,
+  .span-secondary {
+    color: var(--color-secondary);
+  }
+
+  /* ── VARIANTES DANGER ── */
+  .h1-danger,
+  .h2-danger,
+  .h3-danger,
+  .h4-danger {
+    color: var(--color-danger);
+  }
+  .p-danger,
+  .span-danger,
+  .small-danger {
+    color: var(--color-danger);
+  }
+
+  /* ── VARIANTES MUTED ── */
+  .p-muted,
+  .span-muted,
+  .small-muted,
+  .label-muted {
+    color: var(--color-muted);
+  }
+}

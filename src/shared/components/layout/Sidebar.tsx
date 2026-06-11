@@ -24,6 +24,7 @@ const navItems: NavItem[] = [
   { label: "Sales", icon: <IconReceipt size={20} />, path: "/sales" },
   { label: "Reports", icon: <IconChartBar size={20} />, path: "/reports" },
   { label: "Users", icon: <IconUsers size={20} />, path: "/users" },
+  { label: "Kardex", icon: <IconLayoutDashboard size={20} />, path: "/kardex" },
 ];
 
 export const Sidebar = () => {

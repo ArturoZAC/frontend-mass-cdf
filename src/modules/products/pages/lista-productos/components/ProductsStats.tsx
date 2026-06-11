@@ -1,12 +1,16 @@
-import { productsMock } from "../mock/products.mock";
+import type { ProductoResponse } from "../../../api/products.api";
 
-export const ProductsStats = () => {
-  const total = productsMock.length;
-  const enStock = productsMock.filter((p) => p.stock > p.stockMinimo * 2).length;
-  const stockBajo = productsMock.filter(
+interface Props {
+  products: ProductoResponse[];
+}
+
+export const ProductsStats = ({ products }: Props) => {
+  const total = products.length;
+  const enStock = products.filter((p) => p.stock > p.stockMinimo * 2).length;
+  const stockBajo = products.filter(
     (p) => p.stock > p.stockMinimo && p.stock <= p.stockMinimo * 2,
   ).length;
-  const agotado = productsMock.filter((p) => p.stock <= p.stockMinimo).length;
+  const agotado = products.filter((p) => p.stock <= p.stockMinimo).length;
 
   const stats = [
     { label: "TOTAL PRODUCTOS", value: total.toLocaleString(), color: "text-[#1a1a1a]" },

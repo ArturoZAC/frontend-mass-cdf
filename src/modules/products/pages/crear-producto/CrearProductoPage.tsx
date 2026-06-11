@@ -1,19 +1,25 @@
 import { useNavigate } from "react-router-dom";
 import { ProductoForm } from "../../components/ProductoForm";
 import { IconChevronLeft } from "@tabler/icons-react";
+import { productsApi } from "../../api/products.api";
 import type { ProductoFormData } from "../../schemas/producto.schema";
 
 export const CrearProductoPage = () => {
   const navigate = useNavigate();
 
-  const handleSubmit = (data: ProductoFormData) => {
-    console.log("Crear producto:", data);
+  const handleSubmit = async (data: ProductoFormData) => {
+    const formData = new FormData();
+    const { imagen, ...rest } = data;
+
+    formData.append("data", new Blob([JSON.stringify(rest)], { type: "application/json" }));
+    if (imagen) formData.append("imagen", imagen);
+
+    await productsApi.create(formData);
     navigate("/products");
   };
 
   return (
     <div>
-      {/* Header */}
       <div className="flex items-center gap-3 mb-6">
         <button
           onClick={() => navigate("/products")}
@@ -30,8 +36,6 @@ export const CrearProductoPage = () => {
           </p>
         </div>
       </div>
-
-      {/* Form Card */}
       <div className="bg-white rounded-xl border border-gray-100 p-6 max-w-3xl">
         <ProductoForm onSubmit={handleSubmit} />
       </div>

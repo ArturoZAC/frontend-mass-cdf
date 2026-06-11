@@ -1,42 +1,48 @@
+import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { ProductoForm } from "../../components/ProductoForm";
 import { IconChevronLeft } from "@tabler/icons-react";
-import { productsMock } from "../lista-productos/mock/products.mock";
+import { productsApi, type ProductoResponse } from "../../api/products.api";
 import type { ProductoFormData } from "../../schemas/producto.schema";
 
 export const EditarProductoPage = () => {
   const navigate = useNavigate();
   const { id } = useParams();
+  const [producto, setProducto] = useState<ProductoResponse | null>(null);
 
-  const producto = productsMock.find((p) => p.id === Number(id));
+  useEffect(() => {
+    if (id) productsApi.getById(Number(id)).then((r) => setProducto(r.data));
+  }, [id]);
 
-  if (!producto) {
+  if (!producto)
     return (
       <div className="flex items-center justify-center h-64">
-        <p className="p-muted text-sm">Producto no encontrado.</p>
+        <p className="p-muted text-sm">Cargando producto...</p>
       </div>
     );
-  }
 
   const defaultValues: Partial<ProductoFormData> = {
     nombre: producto.nombre,
-    codigo: producto.codigo,
     precio: producto.precio,
     stock: producto.stock,
     stockMinimo: producto.stockMinimo,
     idCategoria: producto.categoria.id,
     idProveedor: producto.proveedor?.id,
-    imagen: producto.imagen,
   };
 
-  const handleSubmit = (data: ProductoFormData) => {
-    console.log("Editar producto:", data);
+  const handleSubmit = async (data: ProductoFormData) => {
+    const formData = new FormData();
+    const { imagen, ...rest } = data;
+
+    formData.append("data", new Blob([JSON.stringify(rest)], { type: "application/json" }));
+    if (imagen) formData.append("imagen", imagen);
+
+    await productsApi.update(Number(id), formData);
     navigate("/products");
   };
 
   return (
     <div>
-      {/* Header */}
       <div className="flex items-center gap-3 mb-6">
         <button
           onClick={() => navigate("/products")}
@@ -54,10 +60,13 @@ export const EditarProductoPage = () => {
           </p>
         </div>
       </div>
-
-      {/* Form Card */}
       <div className="bg-white rounded-xl border border-gray-100 p-6 max-w-3xl">
-        <ProductoForm defaultValues={defaultValues} onSubmit={handleSubmit} isEditing />
+        <ProductoForm
+          defaultValues={defaultValues}
+          defaultImagenUrl={producto.imagenUrl}
+          onSubmit={handleSubmit}
+          isEditing
+        />
       </div>
     </div>
   );

@@ -4,12 +4,12 @@ interface StockBarProps {
 }
 
 export const StockBar = ({ stock, stockMinimo }: StockBarProps) => {
-  const ratio = stock / (stockMinimo * 4);
+  const ratio = stock / (stockMinimo * 2);
   const percent = Math.min(ratio * 100, 100);
 
   let color = "bg-green-500";
-  if (stock <= stockMinimo) color = "bg-red-500";
-  else if (stock <= stockMinimo * 2) color = "bg-yellow-400";
+  if (stock < stockMinimo) color = "bg-red-500";
+  else if (stock === stockMinimo) color = "bg-yellow-400";
 
   return (
     <div className="flex items-center gap-2 mx-auto">
@@ -18,9 +18,9 @@ export const StockBar = ({ stock, stockMinimo }: StockBarProps) => {
       </div>
       <span
         className={`text-xs font-bold ${
-          stock <= stockMinimo
+          stock < stockMinimo
             ? "text-red-500"
-            : stock <= stockMinimo * 2
+            : stock === stockMinimo
               ? "text-yellow-500"
               : "text-green-600"
         }`}

@@ -1,13 +1,16 @@
 import { IconPencil, IconTrash, IconPhoto } from "@tabler/icons-react";
 import { CategoryBadge } from "./ui/CategoryBadge";
 import { StockBar } from "./ui/StockBar";
-import type { Product } from "../pages/lista-productos/mock/products.mock";
+import type { ProductoResponse } from "../../../api/products.api";
+import { getEnvs } from "../../../../../shared/helpers/get-envs";
 
 interface ProductsTableProps {
-  products: Product[];
-  onEdit: (product: Product) => void;
-  onDelete: (product: Product) => void;
+  products: ProductoResponse[];
+  onEdit: (product: ProductoResponse) => void;
+  onDelete: (product: ProductoResponse) => void;
 }
+
+const { BASE_URL_IMAGES } = getEnvs();
 
 const timeAgo = (dateStr: string): string => {
   const diff = Date.now() - new Date(dateStr).getTime();
@@ -41,11 +44,10 @@ export const ProductsTable = ({ products, onEdit, onDelete }: ProductsTableProps
               ${i !== products.length - 1 ? "border-b border-gray-50" : ""}
               hover:bg-gray-50 transition-colors`}
           >
-            {/* Imagen */}
             <div className="w-10 h-10 rounded-lg overflow-hidden bg-gray-100 mx-auto">
-              {product.imagen ? (
+              {product.imagenUrl ? (
                 <img
-                  src={product.imagen}
+                  src={`${BASE_URL_IMAGES}${product.imagenUrl}`}
                   alt={product.nombre}
                   className="w-full h-full object-cover"
                 />
@@ -55,8 +57,6 @@ export const ProductsTable = ({ products, onEdit, onDelete }: ProductsTableProps
                 </div>
               )}
             </div>
-
-            {/* Producto */}
             <div>
               <p className="text-sm font-semibold text-[#1a1a1a] text-center">{product.nombre}</p>
               <p className="text-xs text-gray-400 mt-0.5 text-center">
@@ -64,16 +64,12 @@ export const ProductsTable = ({ products, onEdit, onDelete }: ProductsTableProps
               </p>
             </div>
 
-            {/* SKU */}
             <span className="text-xs text-gray-500 font-mono text-center">{product.codigo}</span>
 
-            {/* Categoría */}
             <CategoryBadge categoria={product.categoria.nombre} />
 
-            {/* Stock */}
             <StockBar stock={product.stock} stockMinimo={product.stockMinimo} />
 
-            {/* Acciones */}
             <div className="flex items-center gap-2 mx-auto">
               <button
                 onClick={() => onEdit(product)}
@@ -92,30 +88,8 @@ export const ProductsTable = ({ products, onEdit, onDelete }: ProductsTableProps
         ))
       )}
 
-      {/* Footer */}
       <div className="flex items-center justify-between px-4 py-3 border-t border-gray-100">
-        <span className="text-xs text-gray-400">
-          Mostrando 1-{products.length} de {products.length} productos
-        </span>
-        <div className="flex items-center gap-1">
-          {[1, 2, 3].map((page) => (
-            <button
-              key={page}
-              className={`w-7 h-7 rounded text-xs font-semibold transition-colors cursor-pointer
-                ${
-                  page === 1
-                    ? "bg-[#0D2DAA] text-white"
-                    : "bg-white border border-gray-200 text-gray-600 hover:bg-gray-50"
-                }`}
-            >
-              {page}
-            </button>
-          ))}
-          <span className="text-xs text-gray-400 mx-1">...</span>
-          <button className="w-7 h-7 rounded text-xs font-semibold bg-white border border-gray-200 text-gray-600 hover:bg-gray-50 cursor-pointer">
-            321
-          </button>
-        </div>
+        <span className="text-xs text-gray-400">Mostrando {products.length} productos</span>
       </div>
     </div>
   );

@@ -1,7 +1,10 @@
 import axios from "axios";
+import { getEnvs } from "../helpers/get-envs";
+
+const { BASE_URL } = getEnvs();
 
 export const api = axios.create({
-  baseURL: "http://localhost:8085/api",
+  baseURL: BASE_URL,
   headers: {
     "Content-Type": "application/json",
   },

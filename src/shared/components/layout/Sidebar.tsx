@@ -10,6 +10,7 @@ import {
   IconLogout,
   IconPlus,
 } from "@tabler/icons-react";
+import { useAuthStore } from "../../store/auth.store";
 
 interface NavItem {
   label: string;
@@ -28,6 +29,7 @@ const navItems: NavItem[] = [
 ];
 
 export const Sidebar = () => {
+  const { logout } = useAuthStore();
   const location = useLocation();
   const navigate = useNavigate();
   const active = location.pathname;
@@ -86,7 +88,13 @@ export const Sidebar = () => {
           <IconHelp size={20} className="text-[#4b5563]" />
           <span className="btn-sans text-sm font-medium text-[#1a1a1a]">Help</span>
         </button>
-        <button className="flex items-center gap-3 px-3 py-2.5 rounded-lg w-full text-left hover:bg-gray-200 transition-colors duration-200 cursor-pointer">
+        <button
+          className="flex items-center gap-3 px-3 py-2.5 rounded-lg w-full text-left hover:bg-gray-200 transition-colors duration-200 cursor-pointer"
+          onClick={() => {
+            logout();
+            navigate("/login");
+          }}
+        >
           <IconLogout size={20} className="text-[#4b5563]" />
           <span className="btn-sans text-sm font-medium text-[#1a1a1a]">Logout</span>
         </button>

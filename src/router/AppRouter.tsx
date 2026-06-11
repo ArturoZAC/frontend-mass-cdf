@@ -1,5 +1,4 @@
 import { createBrowserRouter, Navigate } from "react-router-dom";
-import { LoginPage } from "../modules/auth/pages/LoginPage";
 import { AppLayout } from "../shared/components/layout/AppLayout";
 import { DashboardPage } from "../modules/dashboard/pages/DashboardPage";
 // import { StockPage } from "../modules/stock/pages/StockPage";
@@ -10,18 +9,17 @@ import { UsersPage } from "../modules/users/pages/UsersPage";
 import { productsRoutes } from "../modules/products/routes/ProductsRoutes";
 import { stockRoutes } from "../modules/stock/routes/StockRoutes";
 import { kardexRoutes } from "../modules/kardex/routes/KardexRoutes";
+import { authRoutes } from "../modules/auth/routes/AuthRoutes";
 
 export const AppRouter = createBrowserRouter([
-  {
-    path: "/login",
-    element: <LoginPage />,
-  },
+  authRoutes,
   {
     path: "/",
     element: <AppLayout />,
     children: [
       { index: true, element: <Navigate to="/dashboard" replace /> },
       { path: "dashboard", element: <DashboardPage /> },
+
       // { path: "products", element: <ListaProductosPage /> },
       productsRoutes,
       // { path: "stock", element: <StockPage /> },

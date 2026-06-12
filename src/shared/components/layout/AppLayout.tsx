@@ -1,6 +1,7 @@
 import { Sidebar } from "./Sidebar";
 import { Navbar } from "./Navbar";
-import { Outlet, useLocation } from "react-router-dom";
+import { Navigate, Outlet, useLocation } from "react-router-dom";
+import { useAuthStore } from "../../store/auth.store";
 
 const pageNames: Record<string, string> = {
   "/dashboard": "Dashboard",
@@ -14,6 +15,10 @@ const pageNames: Record<string, string> = {
 export const AppLayout = () => {
   const location = useLocation();
   const currentPage = pageNames[location.pathname] ?? "Dashboard";
+  const authStatus = useAuthStore((s) => s.authStatus);
+
+  if (authStatus === "loading") return null;
+  if (authStatus !== "authenticated") return <Navigate to="/login" replace />;
 
   return (
     <div className="flex min-h-screen">

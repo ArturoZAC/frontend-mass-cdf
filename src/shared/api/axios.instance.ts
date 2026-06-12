@@ -3,6 +3,8 @@ import { getEnvs } from "../helpers/get-envs";
 
 const { BASE_URL } = getEnvs();
 
+// console.log({ BASE_URL });
+
 export const api = axios.create({
   baseURL: BASE_URL,
   headers: {
